@@ -37,6 +37,8 @@ extern int g_pid;
 extern struct config_sesman *g_cfg; /* in sesman.c */
 extern tbus g_term_event;
 
+sigset_t sesman_old_sigmask;
+
 /******************************************************************************/
 void
 sig_sesman_shutdown(int sig)
@@ -202,4 +204,24 @@ sig_handler_thread(void *arg)
     while (1);
 
     return 0;
+}
+
+/******************************************************************************/
+void
+sig_block_sigchld()
+{
+    sigset_t newmask;
+
+    sigemptyset(&newmask);
+    sigemptyset(&sesman_old_sigmask);
+    sigaddset(&newmask, SIGCHLD);
+    sigprocmask(SIG_BLOCK, &newmask, &sesman_old_sigmask);
+}
+
+/******************************************************************************/
+void
+sig_release_sigchld()
+{
+    g_signal_child_stop(sig_sesman_session_end); /* SIGCHLD */
+    sigprocmask(SIG_SETMASK, &sesman_old_sigmask, NULL);
 }

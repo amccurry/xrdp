@@ -357,6 +357,8 @@ get_keymaps(int keylayout, struct xrdp_keymap* keymap);
 int
 xrdp_login_wnd_create(struct xrdp_wm* self);
 int
+xrdp_newpass_wnd_create(struct xrdp_wm *self);
+int
 load_xrdp_config(struct xrdp_config *config, int bpp);
 
 /* xrdp_bitmap_compress.c */
@@ -373,6 +375,8 @@ void
 xrdp_mm_delete(struct xrdp_mm* self);
 int
 xrdp_mm_connect(struct xrdp_mm* self);
+int
+xrdp_mm_change_expired_password(struct xrdp_mm *self);
 int
 xrdp_mm_process_channel_data(struct xrdp_mm* self, tbus param1, tbus param2,
                              tbus param3, tbus param4);

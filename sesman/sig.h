@@ -62,4 +62,20 @@ sig_sesman_session_end(int sig);
 void*
 sig_handler_thread(void* arg);
 
+/**
+ *
+ * @brief block SIGCHLD
+ *
+ */
+void
+sig_block_sigchld();
+
+/**
+ *
+ * @brief (re)enable SIGCHLD
+ *
+ */
+void
+sig_release_sigchld();
+
 #endif
